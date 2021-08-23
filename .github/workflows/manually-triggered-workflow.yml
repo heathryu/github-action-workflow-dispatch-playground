@@ -9,6 +9,12 @@ on:
       environment:
         description: name of environment
         required: true
+      targetRef:
+        description: target ref
+        required: false
+
+env:
+  TARGET_REF: ${{ github.event.inputs.targetRef || github.ref }}
 
 jobs:
   say_hello:
@@ -22,3 +28,5 @@ jobs:
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "github.ref ${{ github.ref }}!"
           echo "input.targetRef ${{ github.event.inputs.targetRef }}!"
+          echo "env.TARGET_REF ${{ env.TARGET_REF }}!"
+      
