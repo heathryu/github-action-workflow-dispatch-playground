@@ -9,10 +9,16 @@ on:
       environment:
         description: name of environment
         required: true
+
 jobs:
   say_hello:
     environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.targetRef }}
       - run: |
           echo "Hello ${{ github.event.inputs.name }}!"
+          echo "github.ref ${{ github.ref }}!"
+          echo "input.targetRef ${{ github.event.inputs.targetRef }}!"
