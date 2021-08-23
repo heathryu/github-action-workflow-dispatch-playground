@@ -15,12 +15,18 @@ on:
 
 env:
   TARGET_REF: ${{ github.event.inputs.targetRef || github.ref }}
+  ENV_NAME: ${{ github.event.inputs.environment }}
 
 jobs:
   say_hello:
     environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
+      - name: Validate environment name
+        if: ${{ !contains(['dev', 'prod'], env.ENV_NAME) }}
+        run: |
+          echo "$ENV_NAME is not a valid target environment for deployment"
+          exit1
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.inputs.targetRef }}
