@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Validate environment name
-        if: ${{ !contains(['dev', 'prod'], env.ENV_NAME) }}
+        if: ${{ !contains(fromJson(["dev", "prod"]), env.ENV_NAME) }}
         run: |
           echo "$ENV_NAME is not a valid target environment for deployment"
           exit1
