@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Validate environment name
-        if: ${{ !contains(fromJson(["dev", "prod"]), env.ENV_NAME) }}
+        if: ${{ !contains(fromJson('["dev", "prod"]'), env.ENV_NAME) }}
         run: |
           echo "$ENV_NAME is not a valid target environment for deployment"
           exit1
@@ -35,4 +35,3 @@ jobs:
           echo "github.ref ${{ github.ref }}!"
           echo "input.targetRef ${{ github.event.inputs.targetRef }}!"
           echo "env.TARGET_REF ${{ env.TARGET_REF }}!"
-      
