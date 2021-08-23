@@ -6,9 +6,12 @@ on:
         description: 'Person to greet'
         required: true
         default: 'Mona the Octocat'
-
+      environment:
+        description: name of environment
+        required: true
 jobs:
   say_hello:
+    environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - run: |
