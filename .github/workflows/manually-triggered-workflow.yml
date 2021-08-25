@@ -32,7 +32,7 @@ jobs:
           echo "$ENV_NAME is not a valid target environment for deployment"
           exit1
       - name: Validate skipFirstStep
-        if: ${ !github.event.inputs.skipFirstStep == null || !github.event.inputs.skipFirstStep == 'yes' }}
+        if: ${{ !github.event.inputs.skipFirstStep == null || !github.event.inputs.skipFirstStep == 'yes' }}
         run: |
           echo "${{ github.event.inputs.skipFirstStep }} is not a valid value for skipFirstStep."
           exit 1
