@@ -38,7 +38,6 @@ jobs:
             const isValidEnvironment = ['dev', 'prod'].includes(context.payload.inputs.environment);
             console.log('isValidEnvironment', isValidEnvironment);
             if (!isValidEnvironment) {
-              console.error(`${context.payload.inputs.environment} is not a valid environment name for Property Estimating`);
               core.setFailed(`${context.payload.inputs.environment} is not a valid environment name for Property Estimating`); 
             }
 
