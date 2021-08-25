@@ -35,7 +35,11 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
+            console.log('context', context);
+            console.log('context.payload', context.payload);
+            console.log('github.event', github); 
             const isValidEnvironment = ['dev', 'prod'].includes(context.github.event.inputs.environment);
+            console.log('isValidEnvironment', isValidEnvironment);
             if (!isValidEnvironment) {
               console.error(`${context.github.event.inputs.environment} is not a valid environment name for Property Estimating`);
               core.setFailed(`${context.github.event.inputs.environment} is not a valid environment name for Property Estimating`); 
