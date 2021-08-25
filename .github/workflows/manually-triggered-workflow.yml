@@ -26,6 +26,7 @@ jobs:
         if: ${{ !contains(fromJson('["dev", "prod"]'), env.ENV_NAME) }}
         run: |
           echo "${{ env.ENV_NAME }} is not a valid target environment for deployment"
+          echo "$ENV_NAME is not a valid target environment for deployment"
           exit1
       - uses: actions/checkout@v2
         with:
