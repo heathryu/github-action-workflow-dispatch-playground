@@ -51,6 +51,6 @@ jobs:
   first_step:
     runs-on: ubuntu-latest
     needs: validate_inputs
-    if: ${{ !(github.event.inputs.skipFirstStep != 'yes') }}
+    if: ${{ github.event.inputs.skipFirstStep != 'yes' }}
     steps:
       - run: echo "Just running things in ref $TARGET_REF for environment $ENV_NAME"
