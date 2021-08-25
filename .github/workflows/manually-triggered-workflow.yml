@@ -32,12 +32,15 @@ jobs:
       #     echo "$ENV_NAME is not a valid target environment for deployment"
       #     exit1
       - name: Validate environment name
-        run: |
-          allowed_envs=("dev" "prod")
-          if [[ "${allowed_envs[@]}}" =~ "$ENV_NAME" ]]; then
-            echo "$ENV_NAME is not a valid target environment for deployment"
-            exit 1
-          fi
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const isValidEnvironment = ['dev', 'prod'].includes(context.github.event.inputs.environment);
+            if (!isValidEnvironment) {
+              console.error(`${context.github.event.inputs.environment} is not a valid environment name for Property Estimating`);
+              core.setFailed(`${context.github.event.inputs.environment} is not a valid environment name for Property Estimating`); 
+            }
+
       - name: Validate skipFirstStep
         if: ${{ github.event.inputs.skipFirstStep != '' && github.event.inputs.skipFirstStep != 'yes' }}
         run: |
