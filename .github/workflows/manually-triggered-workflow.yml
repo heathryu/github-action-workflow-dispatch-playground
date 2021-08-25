@@ -22,7 +22,7 @@ env:
 
 jobs:
   validate_inputs:
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ env.ENV_NAME }}
     runs-on: ubuntu-latest
     steps:
       # - name: Validate environment name
