@@ -32,7 +32,8 @@ jobs:
       #     exit1
       - name: Validate environment name
         run: |
-          if [[ (dev prod) =~  $ENV_NAME ]]; then
+          allowed_envs=("dev" "prod")
+          if [[ "${allowed_envs[@]}}" =~ "$ENV_NAME" ]]; then
             echo "$ENV_NAME is not a valid target environment for deployment"
             exit 1
           fi
