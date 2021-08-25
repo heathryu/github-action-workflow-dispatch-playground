@@ -21,7 +21,7 @@ env:
   ENV_NAME: ${{ github.event.inputs.environment }}
 
 jobs:
-  validate_inputs:    
+  validate_inputs:
     environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
@@ -32,7 +32,7 @@ jobs:
           echo "$ENV_NAME is not a valid target environment for deployment"
           exit1
       - name: Validate skipFirstStep
-        if: ${{ !github.event.inputs.skipFirstStep == null || !github.event.inputs.skipFirstStep == 'yes' }}
+        if: ${{ !github.event.inputs.skipFirstStep == null || github.event.inputs.skipFirstStep != 'yes' }}
         run: |
           echo "${{ github.event.inputs.skipFirstStep }} is not a valid value for skipFirstStep."
           exit 1
@@ -46,6 +46,7 @@ jobs:
           echo "env.TARGET_REF ${{ env.TARGET_REF }}!"
           echo "env.ENV_NAME ${{ env.ENV_NAME }}!"
           echo "env.ENV_NAME $ENV_NAME!"
+          echo "github.event.inputs.skipFirstStep ${{ github.event.inputs.skipFirstStep }}"
 
   first_step:
     runs-on: ubuntu-latest
@@ -53,5 +54,3 @@ jobs:
     if: ${{ !(github.event.inputs.skipFirstStep != 'yes') }}
     steps:
       - run: echo "Just running things in ref $TARGET_REF for environment $ENV_NAME"
-
-  
