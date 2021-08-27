@@ -22,7 +22,7 @@ env:
 
 jobs:
   validate_inputs:
-    environment: ${{ env.ENV_NAME }}
+    environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       # - name: Validate environment name
@@ -34,7 +34,7 @@ jobs:
       - name: Validate environment name
         uses: actions/github-script@v4
         with:
-          script: |          
+          script: |
             const isValidEnvironment = ['dev', 'prod'].includes(context.payload.inputs.environment);
             console.log('isValidEnvironment', isValidEnvironment);
             if (!isValidEnvironment) {
