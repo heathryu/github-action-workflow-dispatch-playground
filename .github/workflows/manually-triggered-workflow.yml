@@ -43,13 +43,12 @@ jobs:
 
             console.log('github.event.inputs.targetRef', github.event.inputs.targetRef);
 
-            const tag = const github.git.getTag({
+            const tag = github.git.getTag({
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_sha: github.event.inputs.targetRef
             });
-            console.lo('found tag', tag);
-
+            console.log('found tag', tag);
 
             const isReleaseEnvironment = ['prod'].includes(context.payload.inputs.environment);
 
