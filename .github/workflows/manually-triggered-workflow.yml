@@ -21,7 +21,6 @@ env:
 
 jobs:
   validate_inputs:
-    environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       # - name: Validate environment name
@@ -67,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.event.inputs.environment }}
-      url: fake.com
+      url: https://heathryu.com
     needs: validate_inputs
     if: ${{ github.event.inputs.skipFirstStep != 'yes' }}
     steps:
