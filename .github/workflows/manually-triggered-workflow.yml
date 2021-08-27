@@ -57,7 +57,6 @@ jobs:
               core.setFailed(`${github.event.inputs.environment} needs to be specified git ref to deploy`);  
             }
 
-
       - name: Validate skipFirstStep
         if: ${{ github.event.inputs.skipFirstStep != '' && github.event.inputs.skipFirstStep != 'yes' }}
         run: |
@@ -65,7 +64,7 @@ jobs:
           exit 1
       - uses: actions/checkout@v2
         with:
-          ref: ${{  }}
+          ref: ${{ env.TARGET_REF }}
       - run: |
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "github.ref ${{ github.ref }}!"
