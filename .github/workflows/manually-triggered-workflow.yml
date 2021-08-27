@@ -41,19 +41,19 @@ jobs:
               core.setFailed(`${context.payload.inputs.environment} is not a valid environment name for Property Estimating`); 
             }
 
-            console.log('github.event.inputs.targetRef', github.event.inputs.targetRef);
+            console.log('context.payload.inputs.targetRef', context.payload.inputs.targetRef);
 
             const tag = github.git.getTag({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag_sha: github.event.inputs.targetRef
+              tag_sha: context.payload.inputs.targetRef
             });
             console.log('found tag', tag);
 
             const isReleaseEnvironment = ['prod'].includes(context.payload.inputs.environment);
 
-            if (isReleaseEnvironment && !github.event.inputs.targetRef) {
-              core.setFailed(`${github.event.inputs.environment} needs to be specified git ref to deploy`);  
+            if (isReleaseEnvironment && !context.payload.inputs.targetRef) {
+              core.setFailed(`${context.payload.inputs.environment} needs to be specified git ref to deploy`);  
             }
 
       - name: Validate skipFirstStep
