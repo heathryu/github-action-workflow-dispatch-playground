@@ -18,7 +18,6 @@ on:
 
 env:
   TARGET_REF: ${{ github.event.inputs.targetRef || github.ref }}
-  ENV_NAME: ${{ github.event.inputs.environment }}
 
 jobs:
   validate_inputs:
@@ -40,15 +39,6 @@ jobs:
             if (!isValidEnvironment) {
               core.setFailed(`${context.payload.inputs.environment} is not a valid environment name for Property Estimating`); 
             }
-
-            console.log('context.payload.inputs.targetRef', context.payload.inputs.targetRef);
-
-            const tag = github.git.getTag({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_sha: context.payload.inputs.targetRef
-            });
-            console.log('found tag', tag);
 
             const isReleaseEnvironment = ['prod'].includes(context.payload.inputs.environment);
 
@@ -75,7 +65,10 @@ jobs:
 
   first_step:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment }}
+      url: fake.com
     needs: validate_inputs
     if: ${{ github.event.inputs.skipFirstStep != 'yes' }}
     steps:
-      - run: echo "Just running things in ref $TARGET_REF for environment $ENV_NAME"
+      - run: echo "Just running things in ref $TARGET_REF for environment ${{ github.event.inputs.environment }}"
